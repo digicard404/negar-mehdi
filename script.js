@@ -92,7 +92,7 @@ setInterval(updateTimer, 1000);
 
 
 // ========================================
-// تایید حضور در واتساپ
+// تایید حضور با SMS
 // ========================================
 
 function sendRSVP(status) {
@@ -100,22 +100,16 @@ function sendRSVP(status) {
     // اسم واردشده در فرم RSVP
     let name = document.getElementById("rsvpName").value;
 
-
     // اگر اسم وارد نشده باشد
     if (!name.trim()) {
-
         alert("لطفاً اسم خود را وارد کنید 🌸");
-
         return;
     }
 
-
-    // شماره واتساپ
+    // شماره موبایل صاحب کارت
     let phone = "989337625170";
 
-
     let text = "";
-
 
     // اگر مهمان می‌آید
     if (status === "yes") {
@@ -128,17 +122,14 @@ function sendRSVP(status) {
     // اگر مهمان نمی‌آید
     else {
 
-        text =`سلام، من ${name} هستم.
+        text = `سلام، من ${name} هستم.
 متاسفانه نمی‌تونم بیام 💐`;
 
     }
 
+    // ساخت لینک SMS
+    let url = `sms:${phone}?body=${encodeURIComponent(text)}`;
 
-    // ساخت لینک واتساپ
-    let url =
-    `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
-
-    // باز کردن واتساپ
-    window.open(url, "_blank");
+    // باز کردن برنامه پیامک
+    window.location.href = url;
 }
-
