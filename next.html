@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ویدئو کارت دعوت</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+  
+
+   <!-- ویدئو -->
+<video id="weddingVideo" class="wedding-video" 
+src="https://s41.uupload.ir/files/digicard12/Negar_%20Mehdi.mp4?play" 
+controls 
+playsinline>
+</video>
+
+    <!-- تایمر معکوس -->
+     <div class="timer-wrapper">
+    <h3 class="timer-title">تا مراسم عروسی ما 💍</h3>
+
+    <div class="timer-grid">
+        <div class="time-box">
+            <span class="time-label">ثانیه</span>
+            <span id="sec" class="time-number">00</span>
+        </div>
+
+        <div class="time-box">
+            <span class="time-label">دقیقه</span>
+            <span id="min" class="time-number">00</span>
+        </div>
+
+        <div class="time-box">
+            <span class="time-label">ساعت</span>
+            <span id="hour" class="time-number">00</span>
+        </div>
+
+        <div class="time-box">
+             <span class="time-label">روز</span>
+            <span id="day" class="time-number">00</span>
+        </div>
+
+    
+    </div>
+</div>
+
+<!-- تایید حضور مهمان -->
+ 
+<div class="rsvp-box">
+    <h3 class="rsvp-title">تایید حضور مهمان</h3>
+
+    <input type="text" id="rsvpName" class="rsvp-input" placeholder="اسم شما">
+
+    <div class="rsvp-buttons">
+        <button onclick="sendRSVP('yes')" class="yes-btn"> با افتخار حضور داریم  </button>
+        <button onclick="sendRSVP('no')" class="no-btn"> امکان حضور نداریم </button>
+    </div>
+</div>
+
+
+    <!-- دکمه لوکیشن -->
+    <a class="location-btn" href="https://nshn.ir/22rb1v4P5d12i1" target="_blank">
+        مشاهده موقعیت روی نقشه
+    </a>
+
+    
+</div>
+
+<footer class="insta-footer">
+  <a href="https://instagram.com/digi__card">
+    digi__card
+  </a>
+</footer>
+
+
+<script src="script.js"></script>
+</body>
+</html>
