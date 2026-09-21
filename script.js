@@ -90,46 +90,78 @@ updateTimer();
 setInterval(updateTimer, 1000);
 
 
-
 // ========================================
 // تایید حضور با SMS
 // ========================================
 
 function sendRSVP(status) {
 
-    // اسم واردشده در فرم RSVP
-    let name = document.getElementById("rsvpName").value;
+    // گرفتن اسم مهمان
+    const nameInput = document.getElementById("rsvpName");
 
-    // اگر اسم وارد نشده باشد
-    if (!name.trim()) {
+    if (!nameInput) {
+        alert("خطایی در فرم ایجاد شده است.");
+        return;
+    }
+
+    const name = nameInput.value.trim();
+
+    // بررسی وارد کردن اسم
+    if (name === "") {
         alert("لطفاً اسم خود را وارد کنید 🌸");
+        nameInput.focus();
         return;
     }
 
     // شماره موبایل صاحب کارت
-    let phone = "989337625170";
+    const phone = "989337625170";
 
-    let text = "";
+    // متن پیام
+    let text;
 
-    // اگر مهمان می‌آید
     if (status === "yes") {
 
         text = `سلام، من ${name} هستم.
 برای مراسم میام 🌸`;
 
-    }
-
-    // اگر مهمان نمی‌آید
-    else {
+    } else if (status === "no") {
 
         text = `سلام، من ${name} هستم.
 متاسفانه نمی‌تونم بیام 💐`;
 
+    } else {
+
+        return;
     }
 
-    // ساخت لینک SMS
-    let url = `sms:${phone}?body=${encodeURIComponent(text)}`;
+    // تبدیل متن برای SMS
+    const body = encodeURIComponent(text);
+
+    // تشخیص سیستم‌عامل
+    const userAgent =
+        navigator.userAgent ||
+        navigator.vendor ||
+        window.opera;
+
+    const isIOS =
+        /iPad|iPhone|iPod/.test(userAgent) ||
+        (navigator.platform === "MacIntel" &&
+         navigator.maxTouchPoints > 1);
+
+    let smsURL;
+
+    // فرمت مخصوص iPhone
+    if (isIOS) {
+
+        smsURL = `sms:${phone}&body=${body}`;
+
+    }
+    // فرمت Android و سایر دستگاه‌ها
+    else {
+
+        smsURL = `sms:${phone}?body=${body}`;
+    }
 
     // باز کردن برنامه پیامک
-    window.location.href = url;
+    window.location.href = smsURL;
 }
