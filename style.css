@@ -179,6 +179,80 @@ body {
     color: #333;
 }
 
+/* ========================================
+   پیام راهنمای مرورگر
+======================================== */
+
+#browserMessage {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    z-index: 99999;
+}
+
+.browser-message-box {
+    width: 100%;
+    max-width: 360px;
+
+    background: #fffaf6;
+
+    border-radius: 22px;
+
+    padding: 30px 22px;
+
+    text-align: center;
+
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+.browser-message-icon {
+    font-size: 35px;
+    margin-bottom: 10px;
+}
+
+.browser-message-box h3 {
+    margin: 0 0 12px;
+
+    font-size: 20px;
+
+    color: #5c4b43;
+}
+
+.browser-message-box p {
+    margin: 0;
+
+    line-height: 2;
+
+    font-size: 14px;
+
+    color: #76665e;
+}
+
+.browser-message-box button {
+    margin-top: 20px;
+
+    border: none;
+
+    padding: 10px 28px;
+
+    border-radius: 12px;
+
+    background: #5c4b43;
+
+    color: white;
+
+    font-family: inherit;
+
+    cursor: pointer;
+}
+
 @media (max-width:480px){
 
     .container{

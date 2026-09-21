@@ -96,28 +96,25 @@ setInterval(updateTimer, 1000);
 
 function sendRSVP(status) {
 
-    // گرفتن اسم مهمان
     const nameInput = document.getElementById("rsvpName");
 
     if (!nameInput) {
-        alert("خطایی در فرم ایجاد شده است.");
         return;
     }
 
     const name = nameInput.value.trim();
 
-    // بررسی وارد کردن اسم
-    if (name === "") {
+    // بررسی اسم
+    if (!name) {
         alert("لطفاً اسم خود را وارد کنید 🌸");
         nameInput.focus();
         return;
     }
 
-    // شماره موبایل صاحب کارت
+    // شماره صاحب کارت
     const phone = "989337625170";
 
-    // متن پیام
-    let text;
+    let text = "";
 
     if (status === "yes") {
 
@@ -134,34 +131,82 @@ function sendRSVP(status) {
         return;
     }
 
-    // تبدیل متن برای SMS
     const body = encodeURIComponent(text);
 
-    // تشخیص سیستم‌عامل
-    const userAgent =
-        navigator.userAgent ||
-        navigator.vendor ||
-        window.opera;
+    const userAgent = navigator.userAgent || "";
 
     const isIOS =
         /iPad|iPhone|iPod/.test(userAgent) ||
-        (navigator.platform === "MacIntel" &&
-         navigator.maxTouchPoints > 1);
+        (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 
     let smsURL;
 
-    // فرمت مخصوص iPhone
     if (isIOS) {
-
         smsURL = `sms:${phone}&body=${body}`;
-
-    }
-    // فرمت Android و سایر دستگاه‌ها
-    else {
-
+    } else {
         smsURL = `sms:${phone}?body=${body}`;
     }
 
-    // باز کردن برنامه پیامک
+    // تلاش برای باز کردن SMS
     window.location.href = smsURL;
+
+    // اگر SMS باز نشد، راهنما نمایش داده شود
+    setTimeout(() => {
+        showBrowserMessage();
+    }, 1800);
+}
+
+
+// ========================================
+// پیام راهنمای باز کردن در Chrome
+// ========================================
+
+function showBrowserMessage() {
+
+    // اگر پیام قبلاً ساخته شده، دوباره نساز
+    if (document.getElementById("browserMessage")) {
+        return;
+    }
+
+    const message = document.createElement("div");
+
+    message.id = "browserMessage";
+
+    message.innerHTML = `
+        <div class="browser-message-box">
+
+            <div class="browser-message-icon">
+                🌸
+            </div>
+
+            <h3>
+                برای ثبت حضور
+            </h3>
+
+            <p>
+                اگر پیامک برای شما باز نشد،
+                لطفاً این کارت را با
+                <strong>Google Chrome</strong>
+                باز کنید.
+            </p>
+
+            <button onclick="closeBrowserMessage()">
+                متوجه شدم
+            </button>
+
+        </div>
+    `;
+
+    document.body.appendChild(message);
+}
+
+
+// بستن پیام
+function closeBrowserMessage() {
+
+    const message = document.getElementById("browserMessage");
+
+    if (message) {
+        message.remove();
+    }
 }
